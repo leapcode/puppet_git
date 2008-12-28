@@ -2,7 +2,8 @@
 
 class git::svn {
     include git
+    include subversion
     package{'git-svn':
-        require => Package['git'],
+        require => [ Package['git'], Package['subversion'] ],
     }
 }
