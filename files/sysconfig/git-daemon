@@ -15,6 +15,9 @@
 # - /srv/git/git.example.org
 #GITVHOST=no
 
+# the user git-daemon should run with
+#GITUSER=nobody
+
 # options for the daemon
 #OPTIONS="--reuseaddr --verbose --detach"
 

@@ -16,14 +16,16 @@ export PATH
 lockfile=${LOCKFILE-/var/lock/subsys/git-daemon}
 gitdir=${GITDIR-/srv/git}
 gitvhost=${GITVHOST-no}
+user=${GITUSER-nobody}
 options=${OPTIONS-"--reuseaddr --verbose --detach"}
 gitdaemon=${GITDAEMON-/usr/bin/git-daemon}
 RETVAL=0
 
+gitoptions="--user=${user} ${options}"
 if [ $gitvhost = yes ]; then
-	gitoptions="${options} --interpolated-path=${gitdir}/%H/%D"
+	gitoptions="${gitoptions} --interpolated-path=${gitdir}/%H/%D"
 else
-	gitoptions="${options} --base-path=${gitdir}"
+	gitoptions="${gitoptions} --base-path=${gitdir}"
 fi
 
 # Source function library.

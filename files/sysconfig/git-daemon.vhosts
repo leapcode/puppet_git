@@ -16,6 +16,9 @@
 #GITVHOST=no
 GITVHOST=yes
 
+# the user git-daemon should run with
+#GITUSER=nobody
+
 # options for the daemon
 #OPTIONS="--reuseaddr --verbose --detach"
 
