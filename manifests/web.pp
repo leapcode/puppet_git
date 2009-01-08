@@ -1,4 +1,4 @@
-class git::gitweb {
+class git::web {
     include git
     package{'gitweb':
         ensure => present,
