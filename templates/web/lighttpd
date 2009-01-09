@@ -11,7 +11,7 @@ $HTTP["host"] == "<%= gitweb_url %>" {
     )
 
     setenv.add-environment = (
-      "GITWEB_CONFIG" => "/etc/gitweb.d/${name}.conf",
+      "GITWEB_CONFIG" => "<%= gitweb_config %>"
     )
     cgi.assign = ( ".cgi" => "" )
 }

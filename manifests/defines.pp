@@ -12,7 +12,8 @@ define git::web::repo(
         'absent': { $gitweb_sitename = "${name} git repository" }
         default: { $gitweb_sitename = $sitename }
     }
-    file{"/etc/gitweb.d/${name}.conf":
+    $gitweb_config = "/etc/gitweb.d/${name}.conf"
+    file{"${gitweb_config}":
         content => template("git/web/config")
     }
     case $gitweb_webserver {
@@ -21,6 +22,7 @@ define git::web::repo(
                 gitweb_url => $gitweb_url,
                 projectroot => $projectroot,
                 projects_list => $projects_list,
+                gitweb_config => $gitweb_config,
             }
         }
         default: { fail("no supported \$gitweb_webserver defined on ${fqdn}, so can't do git::web::repo: ${name}") }
@@ -31,7 +33,8 @@ define git::web::repo(
 define git::web::repo::lighttpd(
     $gitweb_url,
     $projectroot,
-    $projects_list
+    $projects_list,
+    $gitweb_config
 ){
     include git::web::lighttpd
     file{"/etc/lighttpd/gitweb.d/${name}.conf":
