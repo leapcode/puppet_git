@@ -11,7 +11,7 @@
 # the Free Software Foundation.
 #
 
-# modules_dir { \"git\": }
+import 'defines.pp'
 
 class git {
     include git::base
