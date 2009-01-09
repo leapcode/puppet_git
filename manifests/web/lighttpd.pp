@@ -1,6 +1,6 @@
+import 'lighttpd/base.pp'
 class git::web::lighttpd {
     include lighttpd 
-    import './lighttpd/base.pp'
     include lighttpd::base::git::web
 
     file{'/etc/lighttpd/lighttpd-gitweb-defaults.conf':
