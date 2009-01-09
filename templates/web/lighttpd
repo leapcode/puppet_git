@@ -1,4 +1,15 @@
-$HTTP["host"] == "<%= $gitweb_url %>" {
+$HTTP["host"] == "<%= gitweb_url %>" {
+    url.redirect += (
+      "^$" => "/",
+    )
+
+    alias.url += (
+      "/gitweb.css" => "/var/www/git/gitweb.css",
+      "/git-logo.png" => "/var/www/git/git-logo.png",
+      "/git-favicon.png" => "/var/www/git/git-favicon.png",
+      "/" => "/var/www/git/gitweb.cgi",
+    )
+
     setenv.add-environment = (
       "GITWEB_CONFIG" => "/etc/gitweb.d/${name}.conf",
     )
