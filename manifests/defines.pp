@@ -20,7 +20,7 @@ define git::web::repo(
             git::web::repo::lighttpd{$name:
                 gitweb_url => $gitweb_url,
                 projectroot => $projectroot,
-                project_list => $projects_list,
+                projects_list => $projects_list,
             }
         }
         default: { fail("no supported \$gitweb_webserver defined on ${fqdn}, so can't do git::web::repo: ${name}") }
