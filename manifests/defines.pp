@@ -2,7 +2,6 @@
 # projectroot: where the git repos are listened
 # projects_list: which repos to export
 define git::web::repo(
-    $gitwebconfig,
     $projectroot,
     $projects_list
 ){
@@ -14,7 +13,6 @@ define git::web::repo(
     case $gitweb_webserver {
         'lighttpd': {
             git::web::repo::lighttpd{$name:
-                gitwebconfig => $gitwebconfig,
                 gitweb_url => $gitweb_url,
                 projectroot => $projectroot,
                 project_list => $projects_list,
@@ -26,7 +24,6 @@ define git::web::repo(
 }
 
 define git::web::repo::lighttpd(
-    $gitwebconfig,
     $gitweb_url,
     $projectroot,
     $projects_list
