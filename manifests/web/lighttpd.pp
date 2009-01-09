@@ -1,5 +1,7 @@
-class git::web::lighttpd inherits lighttpd {
-    include git::web::lighttpd::base
+class git::web::lighttpd {
+    include lighttpd 
+    import 'lighttpd/base.pp'
+    include lighttpd::base::git::web
 
     file{'/etc/lighttpd/lighttpd-gitweb-defaults.conf':
         source => [ "puppet://$server/files/git/web/${fqdn}/lighttpd-gitweb-defaults.conf",
