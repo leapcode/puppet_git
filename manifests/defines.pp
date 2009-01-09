@@ -3,10 +3,15 @@
 # projects_list: which repos to export
 define git::web::repo(
     $projectroot,
-    $projects_list
+    $projects_list,
+    $sitename='absent',
 ){
     include git::web
     $gitweb_url = $name
+    case $gitweb_sitename {
+        'absent': { $gitweb_sitename = "${name} git repository" }
+        default: { $gitweb_sitename = $sitename }
+    }
     file{"/etc/gitweb.d/${name}.conf":
         content => template("git/web/config")
     }
