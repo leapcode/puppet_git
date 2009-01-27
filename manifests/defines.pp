@@ -49,3 +49,14 @@ define git::web::repo::lighttpd(
         notify => Service['lighttpd'],
     }
 }
+
+define git::clone(
+	$git_repo,
+	$projectroot	
+){
+	exec {"git-clone":
+		command => "git-clone --no-hardlinks $git_repo $projectroot",
+		creates => "$projectroot/.git",
+	}
+}
+
