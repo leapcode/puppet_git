@@ -52,11 +52,15 @@ define git::web::repo::lighttpd(
 
 define git::clone(
 	$git_repo,
-	$projectroot	
+	$projectroot,
+        $runas_user='root',    
+        $runas_group='0'    
 ){
 	exec {"git-clone":
 		command => "git-clone --no-hardlinks $git_repo $projectroot",
 		creates => "$projectroot/.git",
+                user => $runas_user,  
+                group => $runas_group,  
 	}
 }
 
