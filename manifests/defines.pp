@@ -63,7 +63,7 @@ define git::clone(
                 notify => Exec["git-clone-chown"]      
 	}
         exec {"git-clone-chown":
-          command => "chown -R ${cloneddir_user}.${cloneddir_group} $projectroot",
+          command => "chown -R ${cloneddir_user}:${cloneddir_group} $projectroot",
           refreshonly => true
         }
 }
