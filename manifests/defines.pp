@@ -53,8 +53,8 @@ define git::web::repo::lighttpd(
 define git::clone(
 	$git_repo,
 	$projectroot,
-        $runas_user='root',    
-        $runas_group='0'    
+        $cloneddir_user='root',    
+        $cloneddir_group='0'    
 ){
 	exec {"git-clone":
 		command => "git-clone --no-hardlinks $git_repo $projectroot",
@@ -63,7 +63,7 @@ define git::clone(
                 notify => Exec["git-clone-chown"]      
 	}
         exec {"git-clone-chown":
-          command => "chown -R $runas_user.$runas_group $projectroot",
+          command => "chown -R ${cloneddir_user}.${cloneddir_group} $projectroot",
           refreshonly => true
         }
 }
