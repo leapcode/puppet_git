@@ -59,11 +59,12 @@ define git::clone(
 	exec {"git-clone":
 		command => "git-clone --no-hardlinks $git_repo $projectroot",
 		creates => "$projectroot/.git",
-                user => root
+                user => root,
+                notify => Exec["git-clone-chown"]      
 	}
         exec {"git-clone-chown":
           command => "chown -R $runas_user.$runas_group $projectroot",
-          require => Exec["git-clone"]
+          refreshonly => true
         }
 }
 
