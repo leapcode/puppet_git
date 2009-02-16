@@ -60,10 +60,14 @@ define git::clone(
 		command => "git-clone --no-hardlinks $git_repo $projectroot",
 		creates => "$projectroot/.git",
                 user => root,
-                notify => Exec["git-clone-chown"]      
+                notify => [Exec["git-clone-chown"],Exec["git-clone-chmod"]]
 	}
         exec {"git-clone-chown":
           command => "chown -R ${cloneddir_user}:${cloneddir_group} $projectroot",
+          refreshonly => true
+        }
+        exec {"git-clone-chmod":
+          command => "chmod -R o-rwx $projectroot",
           refreshonly => true
         }
 }
