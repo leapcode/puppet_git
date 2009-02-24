@@ -60,7 +60,7 @@ define git::clone(
     exec {"git-clone_${name}":
         command => "git-clone --no-hardlinks ${git_repo} ${projectroot}",
         creates => "$projectroot/.git",
-        notify => Exec["git-clone-chown"],
+        notify => Exec["git-clone-chown_${name}"],
     }
     exec {"git-clone-chown_${name}":
         command => "chown -R ${cloneddir_user}:${cloneddir_group} ${projectroot}",
