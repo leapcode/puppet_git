@@ -51,24 +51,27 @@ define git::web::repo::lighttpd(
 }
 
 define git::clone(
-	$git_repo,
-	$projectroot,
-        $cloneddir_user='root',    
-        $cloneddir_group='0'    
+    $git_repo,
+    $projectroot,
+    $cloneddir_user='root',
+    $cloneddir_group='0',
+    $cloneddir_restrict_mode=true
 ){
-	exec {"git-clone":
-		command => "git-clone --no-hardlinks $git_repo $projectroot",
-		creates => "$projectroot/.git",
-                user => root,
-                notify => [Exec["git-clone-chown"],Exec["git-clone-chmod"]]
-	}
-        exec {"git-clone-chown":
-          command => "chown -R ${cloneddir_user}:${cloneddir_group} $projectroot",
-          refreshonly => true
+    exec {"git-clone_${name}":
+        command => "git-clone --no-hardlinks ${git_repo} ${projectroot}",
+        creates => "$projectroot/.git",
+        notify => Exec["git-clone-chown"],
+    }
+    exec {"git-clone-chown_${name}":
+        command => "chown -R ${cloneddir_user}:${cloneddir_group} ${projectroot}",
+        refreshonly => true,
+    }
+    if $cloneddir_restrict_mode {
+        exec {"git-clone-chmod_${name}":
+            command => "chmod -R o-rwx ${projectroot}",
+            refreshonly => true,
+            subscribe => Exec["git-clone_${name}"],
         }
-        exec {"git-clone-chmod":
-          command => "chmod -R o-rwx $projectroot",
-          refreshonly => true
-        }
+    }
 }
 
