@@ -57,9 +57,12 @@ define git::clone(
     $cloneddir_group='0',
     $cloneddir_restrict_mode=true
 ){
+    include git
+
     exec {"git-clone_${name}":
         command => "git-clone --no-hardlinks ${git_repo} ${projectroot}",
-        creates => "$projectroot/.git",
+        creates => "${projectroot}/.git",
+        require => Package['git'],
         notify => Exec["git-clone-chown_${name}"],
     }
     exec {"git-clone-chown_${name}":
