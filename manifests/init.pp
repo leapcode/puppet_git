@@ -11,14 +11,6 @@
 # the Free Software Foundation.
 #
 
-import 'defines.pp'
-
 class git {
     include git::base
-}
-
-class git::base {
-    package{'git':
-        ensure => present,
-    }
 }
