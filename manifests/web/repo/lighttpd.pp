@@ -1,7 +1,5 @@
 define git::web::repo::lighttpd(
     $gitweb_url,
-    $projectroot,
-    $projects_list,
     $gitweb_config
 ){
     include git::web::lighttpd

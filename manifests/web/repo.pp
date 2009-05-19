@@ -20,12 +20,12 @@ define git::web::repo(
         'lighttpd': {
             git::web::repo::lighttpd{$name:
                 gitweb_url => $gitweb_url,
-                projectroot => $projectroot,
-                projects_list => $projects_list,
                 gitweb_config => $gitweb_config,
             }
         }
+        'apache': {
+            apache::vhost::gitweb{$gitweb_url: }
+        }
         default: { fail("no supported \$gitweb_webserver defined on ${fqdn}, so can't do git::web::repo: ${name}") }
     }
-
 }
