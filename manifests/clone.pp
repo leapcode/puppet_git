@@ -22,7 +22,7 @@ define git::clone(
                 notify => Exec["git-clone-chown_${name}"],
             }
             exec {"git-clone-chown_${name}":
-                command => "chown -R ${cloneddir_user}:${cloneddir_group} ${projectroot}",
+                command => "chown -R ${cloneddir_user}:${cloneddir_group} ${projectroot};chmod -R og-rwx ${projectroot}/.git",
                 refreshonly => true
             }
             if $cloneddir_restrict_mode {
