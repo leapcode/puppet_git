@@ -12,5 +12,9 @@
 #
 
 class git {
-    include git::base
+  include git::base
+
+  if $use_shorewall {
+    include shorewall::rules::out::git
+  }
 }

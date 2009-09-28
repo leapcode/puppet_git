@@ -25,4 +25,8 @@ class git::daemon {
         hasstatus => true,
         require => [ File['/etc/sysconfig/git-daemon'], File['/etc/init.d/git-daemon'] ],
     }
+
+    if $use_shorewall {
+      include shorewall::rules::gitdaemon
+    }
 }
