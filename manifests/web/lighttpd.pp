@@ -1,5 +1,5 @@
 class git::web::lighttpd {
-    include lighttpd 
+    include ::lighttpd 
     include lighttpd::base::git::web
 
     file{'/etc/lighttpd/lighttpd-gitweb.conf':
