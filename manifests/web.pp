@@ -12,7 +12,7 @@ class git::web {
     file{'/etc/gitweb.conf':
         source => [ "puppet://$server/files/git/web/${fqdn}/gitweb.conf",
                     "puppet://$server/files/git/web/gitweb.conf",
-                    "puppet://$server/git/web/gitweb.conf" ],
+                    "puppet://$server/modules/git/web/gitweb.conf" ],
         require => Package['gitweb'],
         owner => root, group => 0, mode => 0644;
     }
