@@ -17,8 +17,8 @@ class git::web::lighttpd {
 }
 class lighttpd::base::git::web inherits lighttpd::base {
     File['/etc/lighttpd/lighttpd.conf']{
-        source => [ "puppet://$server/files/git/web/${fqdn}/lighttpd.conf",
-                    "puppet://$server/files/git/web/lighttpd.conf",
+        source => [ "puppet://$server/modules/site-git/web/${fqdn}/lighttpd.conf",
+                    "puppet://$server/modules/site-git/web/lighttpd.conf",
                     "puppet://$server/modules/git/web/lighttpd.conf" ],
     }
 }
