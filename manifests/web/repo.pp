@@ -2,6 +2,7 @@
 # projectroot: where the git repos are listened
 # projects_list: which repos to export
 define git::web::repo(
+    $ensure = 'present',
     $projectroot,
     $projects_list,
     $sitename='absent'
@@ -13,19 +14,29 @@ define git::web::repo(
         default: { $gitweb_sitename = $sitename }
     }
     $gitweb_config = "/etc/gitweb.d/${name}.conf"
-    file{"${gitweb_config}":
+    file{"${gitweb_config}": }
+    if $ensure == 'present' {
+      File["${gitweb_config}"]{
         content => template("git/web/config")
+      }
+    } else {
+      File["${gitweb_config}"]{
+        ensure => absent,
+      }
     }
     case $gitweb_webserver {
         'lighttpd': {
-            git::web::repo::lighttpd{$name:
-                gitweb_url => $gitweb_url,
-                gitweb_config => $gitweb_config,
-            }
+          git::web::repo::lighttpd{$name:
+            ensure => $ensure,
+            gitweb_url => $gitweb_url,
+            gitweb_config => $gitweb_config,
+          }
         }
         'apache': {
-            apache::vhost::gitweb{$gitweb_url: }
-        }
-        default: { fail("no supported \$gitweb_webserver defined on ${fqdn}, so can't do git::web::repo: ${name}") }
+          apache::vhost::gitweb{$gitweb_url:
+            ensure => $ensure,
+          }
+      }
+      default: { fail("no supported \$gitweb_webserver defined on ${fqdn}, so can't do git::web::repo: ${name}") }
     }
 }
