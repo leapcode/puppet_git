@@ -5,7 +5,7 @@ define git::web::repo(
   $ensure = 'present',
   $projectroot,
   $projects_list,
-  $sitename='absent'
+  $sitename = 'absent'
 ){
   include git::web
   $gitweb_url = $name
