@@ -10,7 +10,7 @@ define git::web::repo::lighttpd(
   if $ensure == 'present' {
     File["/etc/lighttpd/gitweb.d/${name}.conf"]{
      content => template("git/web/lighttpd"),
-     owner => root, group => 0, mode => 0644;
+     owner => root, group => 0, mode => 0644
     }
   } else {
     File["/etc/lighttpd/gitweb.d/${name}.conf"]{
