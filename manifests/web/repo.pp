@@ -3,10 +3,13 @@
 # projects_list: which repos to export
 define git::web::repo(
   $ensure = 'present',
-  $projectroot,
-  $projects_list,
+  $projectroot = 'absent',
+  $projects_list = 'absent',
   $sitename = 'absent'
 ){
+  if ($ensure == 'present') and (($projects_list == 'absent') or ($projectroot == 'absent')){
+    fail("You have to pass \$project_list and \$projectroot for ${name} if it should be present!")
+  }
   include git::web
   $gitweb_url = $name
   case $gitweb_sitename {
