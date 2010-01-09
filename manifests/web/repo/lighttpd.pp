@@ -17,7 +17,7 @@ define git::web::repo::lighttpd(
       ensure => $ensure,
     }
   }
-  line{"add_include_of_gitwebrepo_${name}":
+  line{"include_of_gitwebrepo_${name}":
     ensure => $ensure,
     line => "include \"gitweb.d/${name}.conf\"",
     file => "/etc/lighttpd/lighttpd-gitweb.conf",
