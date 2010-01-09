@@ -3,9 +3,12 @@ define git::web::repo::lighttpd(
   $gitweb_url,
   $gitweb_config
 ){
-  include git::web::lighttpd
-  file{"/etc/lighttpd/gitweb.d/${name}.conf":
-     notify => Service['lighttpd'],
+  if $ensure == 'present' { include git::web::lighttpd }
+  file{"/etc/lighttpd/gitweb.d/${name}.conf": }
+  if defined(Service['lighttpd']) {
+    File["/etc/lighttpd/gitweb.d/${name}.conf"]{
+      notify => Service['lighttpd'],
+    }
   }
   if $ensure == 'present' {
     File["/etc/lighttpd/gitweb.d/${name}.conf"]{

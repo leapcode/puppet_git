@@ -10,7 +10,7 @@ define git::web::repo(
   if ($ensure == 'present') and (($projects_list == 'absent') or ($projectroot == 'absent')){
     fail("You have to pass \$project_list and \$projectroot for ${name} if it should be present!")
   }
-  include git::web
+  if $ensure == 'present' { include git::web }
   $gitweb_url = $name
   case $gitweb_sitename {
     'absent': { $gitweb_sitename = "${name} git repository" }
