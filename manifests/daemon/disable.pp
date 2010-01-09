@@ -1,5 +1,5 @@
 class git::daemon::disable inherits git::daemon {
-  Package['git-daemon'],
+  Package['git-daemon']{
     ensure => absent,
   }
 
