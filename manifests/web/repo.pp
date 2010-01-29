@@ -40,6 +40,10 @@ define git::web::repo(
         ensure => $ensure,
       }
     }
-    default: { fail("no supported \$gitweb_webserver defined on ${fqdn}, so can't do git::web::repo: ${name}") }
+    default: {
+      if ($ensure == 'present') {
+        fail("no supported \$gitweb_webserver defined on ${fqdn}, so can't do git::web::repo: ${name}")
+      }
+    }
   }
 }
