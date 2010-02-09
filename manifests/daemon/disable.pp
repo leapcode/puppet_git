@@ -1,23 +1,29 @@
 class git::daemon::disable inherits git::daemon {
-  Package['git-daemon']{
-    ensure => absent,
+
+  if defined(Package['git-daemon']) {
+    Package['git-daemon'] {
+        ensure => absent,
+    }
   }
 
-  File['/etc/init.d/git-daemon']{
+  File['git-daemon_initscript']{ 
     ensure => absent,
   }
-  File['/etc/sysconfig/git-daemon']{
+  
+  File['git-daemon_config'] {
     ensure => absent,
   }
-  Service['git-daemon']{
+  
+  Service['git-daemon'] {
     ensure => stopped,
     enable => false,
     require => undef,
-    before => File['/etc/init.d/git-daemon'],
+    before => File['git-daemon_initscript'],
   }
 
   if $use_shorewall {
     include shorewall::rules::gitdaemon::absent
   }
+
 }
 
