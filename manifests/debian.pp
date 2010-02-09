@@ -1,5 +1,5 @@
 class git::debian inherits git::base {
-    Package['git] {
+    Package['git'] {
         name => 'git-core',
     }
 }
