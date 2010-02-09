@@ -6,12 +6,12 @@ class git::daemon::centos inherits git::daemon::base {
         alias => 'git-daemon',
     }
     
-    File { 'git-daemon_initscript':
+    File['git-daemon_initscript'] {
         path => '/etc/init.d/git-daemon',
         require +> Package['git-daemon'],
     }
 
-    File { 'git-daemon_config':
+    File['git-daemon_config'] {
         path => '/etc/init.d/git-daemon',
         require +> Package['git-daemon'],
     }

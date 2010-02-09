@@ -6,7 +6,7 @@ class git::daemon::disable inherits git::daemon {
     }
   }
 
-  File['git-daemon_initscript']{ 
+  File['git-daemon_initscript'] { 
     ensure => absent,
   }
   
