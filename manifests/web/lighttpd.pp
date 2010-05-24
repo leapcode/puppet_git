@@ -1,24 +1,10 @@
 class git::web::lighttpd {
     include ::lighttpd 
-    include lighttpd::base::git::web
 
-    file{'/etc/lighttpd/lighttpd-gitweb.conf':
-        ensure => present,
+    file{'/etc/lighttpd/conf.d/lighttpd-gitweb.conf':
+        content => 'global { server.modules += ("mod_rewrite", "mod_redirect", "mod_alias", "mod_setenv", "mod_cgi" ) }',
         require => Package['lighttpd'],
         notify => Service['lighttpd'],
         owner => root, group => 0, mode => 0644;
-    }
-
-    file{'/etc/lighttpd/gitweb.d':
-        ensure => directory,
-        require => Package['lighttpd'],
-        owner => root, group => 0, mode => 0755;
-    }
-}
-class lighttpd::base::git::web inherits lighttpd::base {
-    File['/etc/lighttpd/lighttpd.conf']{
-        source => [ "puppet://$server/modules/site-git/web/${fqdn}/lighttpd.conf",
-                    "puppet://$server/modules/site-git/web/lighttpd.conf",
-                    "puppet://$server/modules/git/web/lighttpd.conf" ],
     }
 }
