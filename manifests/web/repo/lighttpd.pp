@@ -5,20 +5,8 @@ define git::web::repo::lighttpd(
 ){
   if $ensure == 'present' { include git::web::lighttpd }
 
-  file{"/etc/lighttpd/conf.d/${name}.gitweb.conf": }
-  if $ensure == 'present' {
-    File["/etc/lighttpd/conf.d/${name}.gitweb.conf"]{
-     content => template('git/web/lighttpd'),
-     owner => root, group => 0, mode => 0644
-    }
-  } else {
-    File["/etc/lighttpd/conf.d/${name}.gitweb.conf"]{
-      ensure => $ensure,
-    }
-  }
-  if defined(Service['lighttpd']) {
-    File["/etc/lighttpd/conf.d/${name}.gitweb.conf"]{
-      notify => Service['lighttpd'],
-    }
+  lighttpd::vhost::file{$name:
+     ensure => $ensure,
+     content => template('git/web/lighttpd');
   }
 }
