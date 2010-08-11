@@ -4,7 +4,7 @@
 define git::web::repo::lighttpd(
   $ensure = 'present',
   $gitweb_url,
-  $logmode = 'default'
+  $logmode = 'default',
   $gitweb_config
 ){
   if $ensure == 'present' { include git::web::lighttpd }
