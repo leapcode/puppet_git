@@ -3,6 +3,10 @@ $HTTP["host"] == "<%= gitweb_url %>" {
       "^$" => "/",
     )
 
+    <%- if logmode.to_s == 'anonym' -%>
+    accesslog.format = "127.0.0.1 %V %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\""
+    <%- end -%>
+
     alias.url += (
       "/gitweb.css" => "/var/www/git/gitweb.css",
       "/git-logo.png" => "/var/www/git/git-logo.png",
