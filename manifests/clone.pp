@@ -1,11 +1,18 @@
 # submodules: Whether we should initialize and update
 #             submodules as well
 #             Default: false
+# clone_before: before which resources a cloning should
+#               happen. This is releveant in combination
+#               with submodules as the exec of submodules
+#               requires the `cwd` and you might get a
+#               dependency cycle if you manage $projectroot
+#               somewhere else.
 define git::clone(
   $ensure = present,
   $git_repo,
   $projectroot,
   $submodules = false,
+  $clone_before = 'absent',
   $cloneddir_user='root',
   $cloneddir_group='0',
   $cloneddir_restrict_mode=true
@@ -23,6 +30,11 @@ define git::clone(
         creates => "${projectroot}/.git",
         user => root,
         notify => Exec["git-clone-chown_${name}"],
+      }
+      if $clone_before != 'absent' {
+        Exec["git-clone_${name}"]{
+          before => $clone_before,
+        }
       }
       if $submodules {
         exec{"git-submodules_${name}":
