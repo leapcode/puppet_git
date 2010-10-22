@@ -6,7 +6,7 @@ class git::daemon::vhosts inherits git::daemon {
                   "puppet:///modules/git/sysconfig/git-daemon.vhosts" ],
     }
   } else {
-    File['/etc/xinetd.d/git']{
+    Xinetd::File['git']{
       source => [ "puppet:///modules/site-git/xinetd.d/${fqdn}/git.vhosts",
                   "puppet:///modules/site-git/xinetd.d/git.vhosts",
                   "puppet:///modules/git/xinetd.d/git.vhosts" ],

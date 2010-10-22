@@ -3,6 +3,9 @@ class git::daemon::disable inherits git::daemon {
     ensure => absent,
   }
 
+  Xinetd::File['git']{
+    source => "puppet:///modules/git/xinetd.d/git.disabled"
+  }
   File['/etc/init.d/git-daemon']{
     ensure => absent,
   }

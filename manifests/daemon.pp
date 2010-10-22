@@ -5,11 +5,8 @@ class git::daemon {
     require => Package['git'],
   }
 
-  include xinetd
-  file{'/etc/xinetd.d/git':
-    require => Package['git-daemon','xinetd'],
-    notify => Service[xinetd],
-    owner => root, group => 0, mode => 0755;
+  xinetd::file{'git':
+    require => Package['git-daemon'],
   }
   file{'/etc/init.d/git-daemon':
     require => Package['git-daemon'],
@@ -23,7 +20,7 @@ class git::daemon {
     hasstatus => true,
   }
   if $git_daemon == 'service' {
-    File['/etc/xinet.d/git']{
+    Xinetd::File['git']{
       source => "puppet:///modules/git/xinetd.d/git.disabled"
     }
     File['/etc/init.d/git-daemon']{
@@ -42,10 +39,10 @@ class git::daemon {
       require => [ File['/etc/sysconfig/git-daemon'], File['/etc/init.d/git-daemon'] ],
     }
   } else {
-    File['/etc/xinetd.d/git']{
-    source => [ "puppet:///modules/site-git/xinetd.d/${fqdn}/git",
-                "puppet:///modules/site-git/xinetd.d/git",
-                "puppet:///modules/git/xinetd.d/git" ],
+    Xinetd::File['git']{
+      source => [ "puppet:///modules/site-git/xinetd.d/${fqdn}/git",
+                  "puppet:///modules/site-git/xinetd.d/git",
+                  "puppet:///modules/git/xinetd.d/git" ],
     }
     Service['git-daemon']{
       ensure => stopped,
