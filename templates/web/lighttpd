@@ -8,9 +8,9 @@ $HTTP["host"] == "<%= gitweb_url %>" {
     <%- end -%>
 
     alias.url += (
-      "/gitweb.css" => "/var/www/git/gitweb.css",
-      "/git-logo.png" => "/var/www/git/git-logo.png",
-      "/git-favicon.png" => "/var/www/git/git-favicon.png",
+      "/static/gitweb.css" => "/var/www/git/static/gitweb.css",
+      "/static/git-logo.png" => "/var/www/git/static/git-logo.png",
+      "/static/git-favicon.png" => "/var/www/git/static/git-favicon.png",
       "/" => "/var/www/git/gitweb.cgi",
     )
 
