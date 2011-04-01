@@ -1,0 +1,30 @@
+class git::daemon::base {
+
+    file { 'git-daemon_initscript':
+        source => [ "puppet://$server/modules/site-git/init.d/${fqdn}/git-daemon",
+                    "puppet://$server/modules/site-git/init.d/${operatingsystem}/git-daemon",
+                    "puppet://$server/modules/site-git/init.d/git-daemon",
+                    "puppet://$server/modules/git/init.d/${operatingsystem}/git-daemon",
+                    "puppet://$server/modules/git/init.d/git-daemon" ],
+        require => Package['git'],
+        owner => root, group => 0, mode => 0755;
+    }
+    
+    file { 'git-daemon_config':
+        source => [ "puppet://$server/modules/site-git/config/${fqdn}/git-daemon",
+                    "puppet://$server/modules/site-git/config/${operatingsystem}/git-daemon",
+                    "puppet://$server/modules/site-git/config/git-daemon",
+                    "puppet://$server/modules/git/config/${operatingsystem}/git-daemon",
+                    "puppet://$server/modules/git/config/git-daemon" ],
+        require => Package['git'],
+        owner => root, group => 0, mode => 0644;
+    }
+    
+    service { 'git-daemon':
+        ensure => running,
+        enable => true,
+        hasstatus => true,
+        require => [ File['git-daemon_initscript'], File['git-daemon_config'] ],
+    }
+
+}

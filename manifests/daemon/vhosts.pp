@@ -1,15 +1,9 @@
 class git::daemon::vhosts inherits git::daemon {
-  if $git_daemon == 'service' {
-    File['/etc/sysconfig/git-daemon']{
-      source => [ "puppet:///modules/site-git/sysconfig/${fqdn}/git-daemon.vhosts",
-                  "puppet:///modules/site-git/sysconfig/git-daemon.vhosts",
-                  "puppet:///modules/git/sysconfig/git-daemon.vhosts" ],
+    File['git-daemon_config']{
+        source => [ "puppet://$server/modules/site-git/config/${fqdn}/git-daemon.vhosts",
+                    "puppet://$server/modules/site-git/config/${operatingsystem}/git-daemon.vhosts",
+                    "puppet://$server/modules/site-git/config/git-daemon.vhosts",
+                    "puppet://$server/modules/git/config/${operatingsystem}/git-daemon.vhosts",
+                    "puppet://$server/modules/git/config/git-daemon.vhosts" ],
     }
-  } else {
-    Xinetd::File['git']{
-      source => [ "puppet:///modules/site-git/xinetd.d/${fqdn}/git.vhosts",
-                  "puppet:///modules/site-git/xinetd.d/git.vhosts",
-                  "puppet:///modules/git/xinetd.d/git.vhosts" ],
-    }
-  }
 }

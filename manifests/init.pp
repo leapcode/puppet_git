@@ -12,9 +12,14 @@
 #
 
 class git {
-  include git::base
 
-  if $use_shorewall {
-    include shorewall::rules::out::git
-  }
+    case $operatingsystem {
+        debian: { include git::debian }
+        centos: { include git::centos }
+    }
+
+    if $use_shorewall {
+        include shorewall::rules::out::git
+    }
+
 }

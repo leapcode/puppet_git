@@ -1,5 +1,6 @@
 class git::base {
-    package{'git':
+    package { 'git':
         ensure => present,
+        alias => 'git',
     }
 }
