@@ -12,6 +12,6 @@ class git::daemon {
     }
 
     if $use_nagios {
-      nagios::service { "git-daemon": check_command "check_git!${fqdn}"; }
+      nagios::service { "git-daemon": check_command => "check_git!${fqdn}"; }
     }
 }
