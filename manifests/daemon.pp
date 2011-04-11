@@ -11,4 +11,7 @@ class git::daemon {
       include shorewall::rules::gitdaemon
     }
 
+    if $use_nagios {
+      nagios::service { "git-daemon": check_command "check_git!${fqdn}"; }
+    }
 }
