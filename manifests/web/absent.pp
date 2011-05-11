@@ -1,15 +1,16 @@
 class git::web::absent {
-  package{'gitweb':
+
+  package { 'gitweb':
     ensure => absent,
   } 
 
-  file{'/etc/gitweb.d':
+  file { '/etc/gitweb.d':
     ensure => absent,
     purge => true,
     force => true,
     recurse => true,
   } 
-  file{'/etc/gitweb.conf':
+  file { '/etc/gitweb.conf':
     ensure => absent,
   } 
 }

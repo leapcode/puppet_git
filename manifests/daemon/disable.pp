@@ -2,7 +2,7 @@ class git::daemon::disable inherits git::daemon::base {
 
   if defined(Package['git-daemon']) {
     Package['git-daemon'] {
-        ensure => absent,
+      ensure => absent,
     }
   }
 

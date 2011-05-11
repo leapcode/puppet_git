@@ -13,13 +13,13 @@
 
 class git {
 
-    case $operatingsystem {
-        debian: { include git::debian }
-        centos: { include git::centos }
-    }
+  case $operatingsystem {
+    debian: { include git::debian }
+    centos: { include git::centos }
+  }
 
-    if $use_shorewall {
-        include shorewall::rules::out::git
-    }
+  if $use_shorewall {
+    include shorewall::rules::out::git
+  }
 
 }
