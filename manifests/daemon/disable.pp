@@ -1,4 +1,4 @@
-class git::daemon::disable inherits git::daemon {
+class git::daemon::disable inherits git::daemon::base {
 
   if defined(Package['git-daemon']) {
     Package['git-daemon'] {
