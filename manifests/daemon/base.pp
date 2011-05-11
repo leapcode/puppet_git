@@ -1,4 +1,4 @@
-class git::daemon::base {
+class git::daemon::base inherits git::base {
 
   file { 'git-daemon_initscript':
     source => [ "puppet://$server/modules/site-git/init.d/${fqdn}/git-daemon",
