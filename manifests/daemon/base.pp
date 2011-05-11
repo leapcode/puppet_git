@@ -7,6 +7,7 @@ class git::daemon::base {
                     "puppet://$server/modules/git/init.d/${operatingsystem}/git-daemon",
                     "puppet://$server/modules/git/init.d/git-daemon" ],
         require => Package['git'],
+        path => "/etc/init.d/git-daemon",
         owner => root, group => 0, mode => 0755;
     }
     
@@ -17,6 +18,7 @@ class git::daemon::base {
                     "puppet://$server/modules/git/config/${operatingsystem}/git-daemon",
                     "puppet://$server/modules/git/config/git-daemon" ],
         require => Package['git'],
+        path => "/etc/default/git-daemon",
         owner => root, group => 0, mode => 0644;
     }
     
@@ -26,5 +28,4 @@ class git::daemon::base {
         hasstatus => true,
         require => [ File['git-daemon_initscript'], File['git-daemon_config'] ],
     }
-
 }
