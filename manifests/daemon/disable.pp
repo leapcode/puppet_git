@@ -27,5 +27,7 @@ class git::daemon::disable inherits git::daemon::base {
 
   if $use_nagios {
     nagios::service { "git-daemon": check_command => "check_git!${fqdn}", ensure => absent; }
+  }
 }
+
 
