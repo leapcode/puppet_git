@@ -1,9 +1,9 @@
 class git::daemon::base inherits git::base {
 
   file { 'git-daemon_initscript':
-    source => [ "puppet://$server/modules/site-git/init.d/${fqdn}/git-daemon",
-                "puppet://$server/modules/site-git/init.d/${operatingsystem}/git-daemon",
-                "puppet://$server/modules/site-git/init.d/git-daemon",
+    source => [ "puppet://$server/modules/site_git/init.d/${fqdn}/git-daemon",
+                "puppet://$server/modules/site_git/init.d/${operatingsystem}/git-daemon",
+                "puppet://$server/modules/site_git/init.d/git-daemon",
                 "puppet://$server/modules/git/init.d/${operatingsystem}/git-daemon",
                 "puppet://$server/modules/git/init.d/git-daemon" ],
     require => Package['git'],
@@ -12,9 +12,9 @@ class git::daemon::base inherits git::base {
   }
   
   file { 'git-daemon_config':
-    source => [ "puppet://$server/modules/site-git/config/${fqdn}/git-daemon",
-                "puppet://$server/modules/site-git/config/${operatingsystem}/git-daemon",
-                "puppet://$server/modules/site-git/config/git-daemon",
+    source => [ "puppet://$server/modules/site_git/config/${fqdn}/git-daemon",
+                "puppet://$server/modules/site_git/config/${operatingsystem}/git-daemon",
+                "puppet://$server/modules/site_git/config/git-daemon",
                 "puppet://$server/modules/git/config/${operatingsystem}/git-daemon",
                 "puppet://$server/modules/git/config/git-daemon" ],
     require => Package['git'],
