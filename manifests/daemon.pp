@@ -4,6 +4,7 @@ class git::daemon {
 
   case $operatingsystem {
     centos: { include git::daemon::centos }
+    debian: { include git::daemon::base }
   }
 
   if $use_shorewall {
